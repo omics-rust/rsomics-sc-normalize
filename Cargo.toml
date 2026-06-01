@@ -1,0 +1,33 @@
+[package]
+name = "rsomics-sc-normalize"
+version = "0.1.0"
+description = "Library-size normalization + log1p of a single-cell count matrix — matches scanpy normalize_total/log1p"
+edition = "2024"
+rust-version = "1.91"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/omics-rust/rsomics-sc-normalize"
+authors = ["Zane Leong <efd@live.com>"]
+
+[[bin]]
+name = "rsomics-sc-normalize"
+path = "src/main.rs"
+
+[lib]
+name = "rsomics_sc_normalize"
+path = "src/lib.rs"
+doctest = false
+
+[dependencies]
+rsomics-common = { version = "0.6", features = ["rayon"] }
+rsomics-help = { version = "0.3" }
+clap = { version = "4", features = ["derive"] }
+rayon = "1"
+flate2 = "1"
+ryu = "1"
+
+[dev-dependencies]
+criterion = { version = "0.7", default-features = false, features = ["cargo_bench_support"] }
+
+[[bench]]
+name = "bench"
+harness = false
