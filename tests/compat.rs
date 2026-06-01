@@ -63,9 +63,10 @@ fn matches_scanpy_value_level() {
     let oracle_py = Path::new(manifest).join("tests/scanpy_normalize_oracle.py");
     assert!(mtx_dir.exists(), "missing golden 10x dir {mtx_dir:?}");
 
-    let scratch =
-        std::env::var("RSOMICS_SCRATCH").unwrap_or_else(|_| "/data3/liangjy/tmp".to_string());
-    let oracle_out = Path::new(&scratch).join("sc_norm_oracle.mtx");
+    let scratch = std::env::var("RSOMICS_SCRATCH")
+        .map(std::path::PathBuf::from)
+        .unwrap_or_else(|_| std::env::temp_dir());
+    let oracle_out = scratch.join("sc_norm_oracle.mtx");
 
     let status = Command::new(&py)
         .arg(&oracle_py)
